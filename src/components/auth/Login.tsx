@@ -26,7 +26,7 @@ function Login() {
 
         if (user) {
             const token = 'fake-jwt-token'; // Simulating token generation
-            login(token, { email: user.email, name: user.name });
+            login(token, { email: user.email, name: user.name, employees: user.employees });
             setLoginStatus('success');
             setTimeout(() => {
                 navigate('/employees');

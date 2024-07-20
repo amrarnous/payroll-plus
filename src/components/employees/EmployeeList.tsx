@@ -1,4 +1,5 @@
-import { Table } from "flowbite-react";
+import { Button, Table } from "flowbite-react";
+import { HiOutlinePencil, HiOutlineTrash } from "react-icons/hi";
 
 interface Employee {
     staffId: string;
@@ -10,9 +11,14 @@ interface Employee {
 
 interface EmployeesProps {
     employees: Employee[];
+    onEdit: (employee: Employee) => void;
 }
 
-function Employees({ employees }: EmployeesProps) {
+function Employees({ employees, onEdit }: EmployeesProps) {
+    const handleEdit = (employee: Employee) => {
+        // Call the onEdit function passed from the parent component
+        onEdit(employee);
+    };
     return (
         <div className="Employees">
 
@@ -32,6 +38,7 @@ function Employees({ employees }: EmployeesProps) {
                             <Table.HeadCell>Joining Date</Table.HeadCell>
                             <Table.HeadCell>Basic Salary</Table.HeadCell>
                             <Table.HeadCell>Salary Allowances</Table.HeadCell>
+                            <Table.HeadCell>Actions</Table.HeadCell>
                         </Table.Head>
                         <Table.Body className="divide-y">
                             {employees.map((employee) => (
@@ -43,6 +50,16 @@ function Employees({ employees }: EmployeesProps) {
                                     <Table.Cell>{employee.joiningDate}</Table.Cell>
                                     <Table.Cell>{employee.basicSalary}</Table.Cell>
                                     <Table.Cell>{employee.salaryAllowances}</Table.Cell>
+                                    <Table.Cell>
+                                        <div className="flex gap-3">
+                                            <Button color="success" onClick={() => handleEdit(employee)}>
+                                                <HiOutlinePencil className="h-4 w-4" />
+                                            </Button>
+                                            <Button color="failure">
+                                                <HiOutlineTrash className="h-4 w-4" />
+                                            </Button>
+                                        </div>
+                                    </Table.Cell>
                                 </Table.Row>
                             ))}
                         </Table.Body>
