@@ -17,11 +17,9 @@ interface EmployeesProps {
 
 function Employees({ employees, onEdit, onDelete }: EmployeesProps) {
     const handleEdit = (employee: Employee) => {
-        // Call the onEdit function passed from the parent component
         onEdit(employee);
     };
     const handleDelete = (employee: Employee) => {
-        // Call the onEdit function passed from the parent component
         onDelete(employee);
     };
     return (

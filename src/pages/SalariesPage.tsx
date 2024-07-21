@@ -4,6 +4,8 @@ import { getEmployees } from '../services/employeeService';
 import { Alert, Button, Label, Modal, TextInput, Checkbox } from 'flowbite-react';
 import { HiInformationCircle } from "react-icons/hi";
 import { processSalary } from '../services/salaryService';
+import { HiDocumentText } from "react-icons/hi";
+
 import { Link } from 'react-router-dom';
 export interface SalaryProcessProps {
     staffId: string;
@@ -75,7 +77,10 @@ function SalariesPage() {
             <div className="flex items-center justify-between border-b pb-2 mb-4">
                 <h1 className='text-primary text-2xl font-bold '>Salaries Managment</h1>
                 <Button color="warning">
-                    <Link className='block' to="/payments-history">Payments History</Link>
+                    <Link className='flex items-center' to="/payments-history">
+                        <HiDocumentText className='w-5 h-5 me-2' />
+                        Payments History
+                    </Link>
                 </Button>
             </div>
             <Modal show={openModal} size="md" onClose={onCloseModal} popup>

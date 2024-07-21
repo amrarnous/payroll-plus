@@ -2,7 +2,7 @@ import EmployeeList from '../components/employees/EmployeeList';
 import React, { useState, useEffect } from 'react';
 import { addEmployee, getEmployees, Employee, updateEmployee, deleteEmployee } from '../services/employeeService';
 import { Alert, Button, Label, Modal, TextInput } from 'flowbite-react';
-import { HiInformationCircle, HiOutlineExclamationCircle } from "react-icons/hi";
+import { HiInformationCircle, HiOutlineExclamationCircle, HiUserAdd } from "react-icons/hi";
 
 function EmployeesPage() {
     const [employees, setEmployees] = useState<Employee[]>([]);
@@ -90,7 +90,10 @@ function EmployeesPage() {
         <div className="EmployeesPage p-2">
             <div className="flex items-center justify-between border-b pb-2 mb-4">
                 <h1 className='text-primary text-2xl font-bold '>Employees Management</h1>
-                <Button onClick={() => setOpenModal({ show: true, mode: 'add' })} color='success'>Add new Employee</Button>
+                <Button onClick={() => setOpenModal({ show: true, mode: 'add' })} className='flex items-center' color='success'>
+                        <HiUserAdd className='w-5 h-5 me-2' />
+                        Add New Employee
+                </Button>
             </div>
 
             <Modal show={openModal.show} size="md" onClose={onCloseModal} popup>

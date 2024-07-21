@@ -1,0 +1,24 @@
+:root {
+    --er-red: #F72717;
+}
+
+* {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+
+}
+
+a.active {
+    color: var(--er-red)
+}
+
+button span:has(a) {
+    padding: 0 !important;
+}
+
+button span:has(a) a {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
