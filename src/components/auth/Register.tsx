@@ -14,10 +14,10 @@ function Register() {
     });
     const [regStatus, setRegStatus] = useState<string | null>(null);
     const [regMessage, setRegMessage] = useState<string | null>(null);
-    
-    
+
+
     const validateForm = () => {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!reg.email || !emailRegex.test(reg.email)) {
             setRegMessage('Please enter a valid email.');
             return false;
@@ -37,10 +37,18 @@ function Register() {
         e.preventDefault();
         if (validateForm()) {
             const users = JSON.parse(localStorage.getItem('users')!) || [];
-            users.push({ email: reg.email, name: reg.name, password: reg.password });
-            localStorage.setItem('users', JSON.stringify(users));
-            setRegStatus('success');
-        }else {
+            const isEmailExists = users.some((user: { email: string }) => user.email === reg.email);
+            if (isEmailExists) {
+                setRegMessage('This email is already registered.');
+                setTimeout(() => {
+                    setRegMessage(null);
+                }, 3500);
+            } else {
+                users.push({ email: reg.email, name: reg.name, password: reg.password });
+                localStorage.setItem('users', JSON.stringify(users));
+                setRegStatus('success');
+            }
+        } else {
             setTimeout(() => {
                 setRegMessage(null);
             }, 3500);
@@ -52,7 +60,7 @@ function Register() {
         <div className="container mx-auto mt-8">
 
             <form className="flex max-w-md flex-col gap-4 shadow-md p-4 rounded-md m-auto" onSubmit={handleRegsiteration}>
-                <h2 className='text-bold text-primary font-bold text-center'>Register </h2>
+                <h2 className='text-bold text-primary font-bold text-center'>Register</h2>
                 <div>
                     <div className="mb-2 block">
                         <Label htmlFor="email1" value="Your email" />
