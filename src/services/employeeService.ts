@@ -2,8 +2,10 @@ export interface Employee {
     staffId: string;
     name: string;
     joiningDate: string;
-    basicSalary: string;
-    salaryAllowances: string;
+    basicSalary: number;
+    salaryAllowances: number;
+    additions?: number;
+    deductions?: number;
 }
 
 export const addEmployee = (newEmployee: Employee) => {
@@ -40,12 +42,11 @@ export const addEmployee = (newEmployee: Employee) => {
 export const getEmployees = (): Employee[] => {
     let existing: any = localStorage.getItem('user');
     existing = existing ? JSON.parse(existing) : []
-    
+
     return existing.employees || [];
 };
 
 export const updateEmployee = (updatedEmployee: Employee) => {
-    // Get the existing users
     let users: any = localStorage.getItem('users');
     let currentUser: any = localStorage.getItem('user');
 
@@ -55,27 +56,45 @@ export const updateEmployee = (updatedEmployee: Employee) => {
     // @ts-ignore
     let userIndex = users.findIndex((user: any) => user.email === currentUser.email);
 
-    // If the user exists
     if (userIndex !== -1) {
-        // Find the index of the employee with the same staffId
         let employeeIndex = users[userIndex].employees.findIndex((employee: Employee) => employee.staffId === updatedEmployee.staffId);
 
-        // If the employee exists
         if (employeeIndex !== -1) {
-            // Update the employee's data
             users[userIndex].employees[employeeIndex] = updatedEmployee;
 
-            // Save the updated users back to localStorage
             localStorage.setItem('users', JSON.stringify(users));
 
-            // Also save the updated user to the 'user' key in localStorage
             localStorage.setItem('user', JSON.stringify(users[userIndex]));
         } else {
-            // Handle the case when the employee does not exist
             console.error(`Employee with staffId ${updatedEmployee.staffId} does not exist.`);
         }
     } else {
-        // Handle the case when the user does not exist
+        console.error(`User with email ${currentUser} does not exist.`);
+    }
+};
+export const deleteEmployee = (staffId: string) => {
+    let users: any = localStorage.getItem('users');
+    let currentUser: any = localStorage.getItem('user');
+
+    users = users ? JSON.parse(users) : [];
+    currentUser = currentUser ? JSON.parse(currentUser) : '';
+
+    // @ts-ignore
+    let userIndex = users.findIndex((user: any) => user.email === currentUser.email);
+
+    if (userIndex !== -1) {
+        let employeeIndex = users[userIndex].employees.findIndex((employee: Employee) => employee.staffId === staffId);
+
+        if (employeeIndex !== -1) {
+            users[userIndex].employees.splice(employeeIndex, 1);
+
+            localStorage.setItem('users', JSON.stringify(users));
+
+            localStorage.setItem('user', JSON.stringify(users[userIndex]));
+        } else {
+            console.error(`Employee with staffId ${staffId} does not exist.`);
+        }
+    } else {
         console.error(`User with email ${currentUser} does not exist.`);
     }
 };

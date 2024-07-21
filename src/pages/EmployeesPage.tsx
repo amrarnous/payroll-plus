@@ -1,8 +1,8 @@
 import EmployeeList from '../components/employees/EmployeeList';
 import React, { useState, useEffect } from 'react';
-import { addEmployee, getEmployees, Employee, updateEmployee } from '../services/employeeService';
+import { addEmployee, getEmployees, Employee, updateEmployee, deleteEmployee } from '../services/employeeService';
 import { Alert, Button, Label, Modal, TextInput } from 'flowbite-react';
-import { HiInformationCircle } from "react-icons/hi";
+import { HiInformationCircle, HiOutlineExclamationCircle } from "react-icons/hi";
 
 function EmployeesPage() {
     const [employees, setEmployees] = useState<Employee[]>([]);
@@ -11,10 +11,18 @@ function EmployeesPage() {
         staffId: '',
         name: '',
         joiningDate: '',
-        basicSalary: '',
-        salaryAllowances: '',
+        basicSalary: 0,
+        salaryAllowances: 0,
     });
     const [openModal, setOpenModal] = useState({ show: false, mode: 'add' });
+    const [openDeleteionModal, setOpenDeleteionModal] = useState(false);
+    const [employeeToDelete, setEmployeeToDelete] = useState<Employee>({
+        staffId: '',
+        name: '',
+        joiningDate: '',
+        basicSalary: 0,
+        salaryAllowances: 0,
+    });
     useEffect(() => {
         setEmployees(getEmployees());
     }, []);
@@ -38,8 +46,8 @@ function EmployeesPage() {
             staffId: '',
             name: '',
             joiningDate: '',
-            basicSalary: '',
-            salaryAllowances: '',
+            basicSalary: 0,
+            salaryAllowances: 0,
         });
         setAlert({ message: `An employee was added successfully`, type: 'success' });
         setTimeout(() => {
@@ -53,8 +61,8 @@ function EmployeesPage() {
             staffId: '',
             name: '',
             joiningDate: '',
-            basicSalary: '',
-            salaryAllowances: '',
+            basicSalary: 0,
+            salaryAllowances: 0,
         });
         setAlert({ message: `Employee information was updated successfully`, type: 'success' });
         setTimeout(() => {
@@ -69,8 +77,17 @@ function EmployeesPage() {
         setNewEmployee(employee);
         setOpenModal({ show: true, mode: 'edit' });
     }
+    const showDeleteEmployeeModal = (employee: Employee) => {
+        setOpenDeleteionModal(true);
+        setEmployeeToDelete(employee);
+    }
+    const handleDeleteEmployee = () => {
+        deleteEmployee(employeeToDelete.staffId);
+        setEmployees([...employees.filter((employee) => employee.staffId !== employeeToDelete.staffId)]);
+        setOpenDeleteionModal(false);
+    }
     return (
-        <div className="EmployeesPage">
+        <div className="EmployeesPage p-2">
             <div className="flex items-center justify-between border-b pb-2 mb-4">
                 <h1 className='text-primary text-2xl font-bold '>Employees Management</h1>
                 <Button onClick={() => setOpenModal({ show: true, mode: 'add' })} color='success'>Add new Employee</Button>
@@ -179,8 +196,27 @@ function EmployeesPage() {
                     </form>
                 </Modal.Body>
             </Modal>
+            <Modal show={openDeleteionModal} size="md" onClose={() => setOpenDeleteionModal(false)} popup>
+                <Modal.Header />
+                <Modal.Body>
+                    <div className="text-center">
+                        <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
+                        <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
+                            Are you sure you want to delete this product?
+                        </h3>
+                        <div className="flex justify-center gap-4">
+                            <Button color="failure" onClick={() => handleDeleteEmployee()}>
+                                Yes, I'm sure
+                            </Button>
+                            <Button color="gray" onClick={() => setOpenDeleteionModal(false)}>
+                                No, cancel
+                            </Button>
+                        </div>
+                    </div>
+                </Modal.Body>
+            </Modal>
 
-            <EmployeeList employees={employees} onEdit={handleEmployeeUpdate} />
+            <EmployeeList employees={employees} onEdit={handleEmployeeUpdate} onDelete={showDeleteEmployeeModal} />
         </div>
     );
 }

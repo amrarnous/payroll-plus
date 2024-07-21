@@ -5,23 +5,27 @@ interface Employee {
     staffId: string;
     name: string;
     joiningDate: string;
-    basicSalary: string;
-    salaryAllowances: string;
+    basicSalary: number;
+    salaryAllowances:  number;
 }
 
 interface EmployeesProps {
     employees: Employee[];
     onEdit: (employee: Employee) => void;
+    onDelete: (employee: Employee) => void;
 }
 
-function Employees({ employees, onEdit }: EmployeesProps) {
+function Employees({ employees, onEdit, onDelete }: EmployeesProps) {
     const handleEdit = (employee: Employee) => {
         // Call the onEdit function passed from the parent component
         onEdit(employee);
     };
+    const handleDelete = (employee: Employee) => {
+        // Call the onEdit function passed from the parent component
+        onDelete(employee);
+    };
     return (
         <div className="Employees">
-
             <div className="overflow-x-auto">
                 {employees.length === 0 ? (
                     <div className="flex flex-col items-center">
@@ -55,7 +59,7 @@ function Employees({ employees, onEdit }: EmployeesProps) {
                                             <Button color="success" onClick={() => handleEdit(employee)}>
                                                 <HiOutlinePencil className="h-4 w-4" />
                                             </Button>
-                                            <Button color="failure">
+                                            <Button color="failure" onClick={() => handleDelete(employee)}>
                                                 <HiOutlineTrash className="h-4 w-4" />
                                             </Button>
                                         </div>

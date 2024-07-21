@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 export function LayoutSidebar() {
     return (
-        <Sidebar aria-label="Sidebar" className="shadow-md bg-white separator border-r">
+        <Sidebar aria-label="Sidebar" className="hidden md:block shadow-md bg-white separator border-r">
             <Sidebar.Items>
                 <Sidebar.ItemGroup>
                     <Sidebar.Item icon={HiOutlineUsers}>

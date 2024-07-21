@@ -3,6 +3,7 @@ import { HiOutlineUsers, HiCash } from "react-icons/hi";
 import { Link } from 'react-router-dom';
 import { Button, Navbar, Dropdown } from "flowbite-react";
 import { useAuth } from "../../context/AuthContext";
+import { HiInformationCircle } from "react-icons/hi";
 
 function LayoutNavbar(e: any) {
     const user: any = useAuth();
@@ -19,7 +20,7 @@ function LayoutNavbar(e: any) {
             {user.isLoggedIn && (
                 <>
                     <div className="flex md:order-1">
-                        <Dropdown color='failure' label={`Welcome ${userInfo.name}`} dismissOnClick={false}>
+                        <Dropdown color='gray' label={`Welcome ${userInfo.name}`} dismissOnClick={false}>
                             <Dropdown.Item>
                                 <Link className="text-lg gap-2 w-100 flex items-center hover:text-primary" to="/employees">
                                     <HiOutlineUsers />

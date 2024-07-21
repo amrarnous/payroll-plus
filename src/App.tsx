@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import LoginPage from './pages/LoginPage';
-import DashboardPage from './pages/DashboardPage';
+import PaymentsHistoryPage from './pages/PaymentsHistoryPage';
 import EmployeesPage from './pages/EmployeesPage';
 import SalariesPage from './pages/SalariesPage';
 import PublicLayout from './components/layout/PublicLayout';
@@ -24,7 +24,7 @@ function App() {
 
           <Route element={<PrivateLayout />}>
             <Route element={<PrivateRoute />}>
-              <Route path="/dashboard" element={<DashboardPage />} />
+              <Route path="/payments-history" element={<PaymentsHistoryPage />} />
               <Route path="/employees" element={<EmployeesPage />} />
               <Route path="/salaries" element={<SalariesPage />} />
             </Route>

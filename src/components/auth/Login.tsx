@@ -17,8 +17,6 @@ function Login() {
 
     const handleLogin = (e: any) => {
         e.preventDefault();
-
-
         const users = JSON.parse(localStorage.getItem('users')!) || [];
         const user = users.find(
             (user: any) => user.email === email && user.password === password
@@ -26,7 +24,7 @@ function Login() {
 
         if (user) {
             const token = 'fake-jwt-token'; // Simulating token generation
-            login(token, { email: user.email, name: user.name, employees: user.employees });
+            login(token, { email: user.email, name: user.name, employees: user.employees, salariesLog: user.salariesLog });
             setLoginStatus('success');
             setTimeout(() => {
                 navigate('/employees');
