@@ -3,9 +3,8 @@ import { HiOutlineUsers, HiCash } from "react-icons/hi";
 import { Link } from 'react-router-dom';
 import { Button, Navbar, Dropdown } from "flowbite-react";
 import { useAuth } from "../../context/AuthContext";
-import { HiInformationCircle } from "react-icons/hi";
 
-function LayoutNavbar(e: any) {
+function LayoutNavbar() {
     const user: any = useAuth();
     const userInfo = JSON.parse(localStorage.getItem('user')!);
     const logout = (e: any) => {
