@@ -91,7 +91,7 @@ function SalariesList({ salaries, openProcessSalaryModal }: SalariesProps) {
                                         {Number(employee.basicSalary) + Number(employee.salaryAllowances) + Number(employee.additions) - Number(employee.deductions)}
                                     </Table.Cell>
                                     <Table.Cell>
-                                        <Button color="success" onClick={() => triggerProcessSalaryModal({ ...employee, total: Number(employee.basicSalary) + Number(employee.salaryAllowances) + Number(employee.additions) - Number(employee.deductions) })}>
+                                        <Button color="success" className="min-w-[166px]" onClick={() => triggerProcessSalaryModal({ ...employee, total: Number(employee.basicSalary) + Number(employee.salaryAllowances) + Number(employee.additions) - Number(employee.deductions) })}>
                                             <HiCash className="mr-1 h-5 w-5" />
                                             Process Salary
                                         </Button>
