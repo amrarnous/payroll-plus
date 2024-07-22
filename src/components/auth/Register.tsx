@@ -3,8 +3,7 @@ import { useState } from 'react';
 import { Button, Label, TextInput } from "flowbite-react";
 import { HiInformationCircle } from "react-icons/hi";
 import { Alert } from "flowbite-react";
-import { Link } from 'react-router-dom';
-
+import { Link, useNavigate } from 'react-router-dom';
 
 function Register() {
     const [reg, setReg] = useState({
@@ -14,7 +13,7 @@ function Register() {
     });
     const [regStatus, setRegStatus] = useState<string | null>(null);
     const [regMessage, setRegMessage] = useState<string | null>(null);
-
+    const navigate = useNavigate();
 
     const validateForm = () => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -47,6 +46,9 @@ function Register() {
                 users.push({ email: reg.email, name: reg.name, password: reg.password });
                 localStorage.setItem('users', JSON.stringify(users));
                 setRegStatus('success');
+                setTimeout(() => {
+                    navigate('/');
+                }, 500);
             }
         } else {
             setTimeout(() => {
@@ -59,13 +61,14 @@ function Register() {
     return (
         <div className="container mx-auto mt-8">
 
-            <form className="flex max-w-md flex-col gap-4 shadow-md p-4 rounded-md m-auto" onSubmit={handleRegsiteration}>
-                <h2 className='text-bold text-primary font-bold text-center'>Register</h2>
+            <form className="flex max-w-md flex-col gap-4 px-4 py-8 rounded-md ed-shadow m-auto" onSubmit={handleRegsiteration}>
+            <h2 className='text-bold text-primary font-bold text-3xl'>Sign up</h2>
+                <span className='mb-3 text-sm'>Make it easier managing your employees salaries</span>
                 <div>
                     <div className="mb-2 block">
                         <Label htmlFor="email1" value="Your email" />
                     </div>
-                    <TextInput id="email1" type="email" placeholder="name@flowbite.com" required value={reg.email}
+                    <TextInput id="email1" type="email" placeholder="name@payroll-plus.com" required value={reg.email}
                         onChange={(e) => setReg({ ...reg, email: e.target.value })} />
                 </div>
                 <div>
@@ -83,7 +86,7 @@ function Register() {
                         onChange={(e) => setReg({ ...reg, password: e.target.value })} />
                 </div>
                 <Button type="submit" color="failure" onClick={() => handleRegsiteration}>Register</Button>
-                <span className='block text-center mt-2'>Already have an account? <Link to='/' className='text-primary'>Login</Link></span>
+                <span className='block text-center mt-2'>Already have an account? <Link to='/' className='text-primary underline'>Login</Link></span>
                 {regStatus === 'success' && (
                     <Alert color="success">
                         <span className="font-medium">Success!</span> You have successfully Registered.

@@ -72,7 +72,7 @@ function SalariesList({ salaries, openProcessSalaryModal }: SalariesProps) {
                                     <Table.Cell>{employee.salaryAllowances}</Table.Cell>
                                     <Table.Cell>
                                         <TextInput
-                                            className="w-24"
+                                            className="w-20"
                                             type="string"
                                             value={employee.additions}
                                             onChange={(e) => handleAdditionsChange(index, Number(e.target.value))}
@@ -80,7 +80,7 @@ function SalariesList({ salaries, openProcessSalaryModal }: SalariesProps) {
                                     </Table.Cell>
                                     <Table.Cell>
                                         <TextInput
-                                            className="w-24"
+                                            className="w-20"
                                             type="string"
                                             value={employee.deductions}
                                             onChange={(e: any) => handleDeductionsChange(index, Number(e.target.value))}

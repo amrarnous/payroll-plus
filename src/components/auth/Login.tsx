@@ -12,7 +12,7 @@ function Login() {
     const [password, setPassword] = useState('');
     const [loginStatus, setLoginStatus] = useState<string | null>(null);
     const navigate = useNavigate();
-    const {login}: any = useAuth();
+    const { login }: any = useAuth();
 
 
     const handleLogin = (e: any) => {
@@ -23,7 +23,7 @@ function Login() {
         );
 
         if (user) {
-            const token = 'fake-jwt-token'; // Simulating token generation
+            const token = 'fake-jwt-token';
             login(token, { email: user.email, name: user.name, employees: user.employees, salariesLog: user.salariesLog });
             setLoginStatus('success');
             setTimeout(() => {
@@ -38,8 +38,9 @@ function Login() {
     return (
         <div className="Login container mx-auto mt-8">
 
-            <form className="flex max-w-md flex-col gap-4 shadow-md p-4 rounded-md m-auto" onSubmit={handleLogin}>
-                <h2 className='text-bold text-primary font-bold text-center'>Login</h2>
+            <form className="flex max-w-md flex-col gap-4 px-4 py-8 rounded-md ed-shadow m-auto" onSubmit={handleLogin}>
+                <h2 className='text-bold text-primary font-bold text-3xl'>Login</h2>
+                <span className='mb-3 text-sm'>Enter your email and password to login</span>
                 <div>
                     <div className="mb-2 block">
                         <Label htmlFor="email" value="Your email" />
@@ -55,7 +56,7 @@ function Login() {
                         onChange={(e) => setPassword(e.target.value)} />
                 </div>
                 <Button type="submit" color="failure" onClick={() => handleLogin}>Login</Button>
-                <span className='block text-center mt-2'>You don't have an account? <Link to='/register' className='text-primary'>Register</Link></span>
+                <span className='block text-center mt-2'>You don't have an account? <Link to='/register' className='text-primary underline'>Sign up here</Link></span>
                 {loginStatus === 'success' && (
                     <Alert color="success">
                         <span className="font-medium">Success!</span> You have successfully logged in.
